@@ -842,7 +842,7 @@ public class ClientThread extends Thread {
                     DescriptionWriter.close();
                     Connection CreateMDBConnection = DriverManager.getConnection("jdbc:sqlite:" + DataPath + "/Members.db");
                     Statement LoadingMDBStatement = CreateMDBConnection.createStatement();
-                    LoadingMDBStatement.execute("CREATE TABLE IF NOT EXISTS Members(ClientId INTEGER PRIMARY KEY, GroupStatus INTEGER NOT NULL)");
+                    LoadingMDBStatement.execute("CREATE TABLE IF NOT EXISTS Members(ClientId INTEGER PRIMARY KEY, Status INTEGER NOT NULL)");
                     LoadingMDBStatement.close();
                     PreparedStatement AddAdmin = CreateMDBConnection.prepareStatement("INSERT INTO Members(ClientId, Status) VALUES (?, ?)");
                     AddAdmin.setLong(1, ByteOperations.BytesToLong(AdminId));
@@ -1357,7 +1357,7 @@ public class ClientThread extends Thread {
                     return false;
                 }
                 if (GetMemberStatus(ByteOperations.BytesToLong(GroupId), ClientId) == null) {
-                    System.out.println("Failed to get message's ids, client is not group " + GetClientNetState());
+                    System.out.println("Failed to get message's ids, client is not in group " + GetClientNetState());
                     if (!WriteByte(Codes.GM_ERR_NO_ACCESS)) {
                         System.out.println("Failed to send response to client " + GetClientNetState());
                     }
@@ -1366,7 +1366,7 @@ public class ClientThread extends Thread {
                 Connection GetMSGIdsConnection = DriverManager.getConnection("jdbc:sqlite:" + DataPath + "/Messages.db");
                 List<Long> MSGIds = new ArrayList<>();
                 Statement GetMSGIds = GetMSGIdsConnection.createStatement();
-                ResultSet MSGIdsResult = GetMSGIds.executeQuery("SELECT id FROM Messages");
+                ResultSet MSGIdsResult = GetMSGIds.executeQuery("SELECT id FROM Messages ORDER BY id");
                 while (MSGIdsResult.next()) {
                     MSGIds.add(MSGIdsResult.getLong(1));
                 }
