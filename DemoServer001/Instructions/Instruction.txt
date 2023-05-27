@@ -1,0 +1,7 @@
+It's instruction for using Server version Demo_0.0.1 Community Edition
+To start you will write server's information
+If you successfully started you can:
+1. Enter 'e' and press enter to turn off server immediately
+2. Enter 'p' and press enter to prepare to turning off
+3. Enter 'o' and press enter to get count of online users
+Wish you good use, thanks for reading instruction

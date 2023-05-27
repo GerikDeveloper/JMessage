@@ -1913,8 +1913,7 @@ public class ClientThread extends Thread {
                     if (request != null) {
                         switch (request[0]) {
                             case Codes.BASIC_PING:
-                                if (ExecutePing())
-                                    System.out.println("Client pinged successfully " + GetClientNetState());
+                                ExecutePing();
                                 break;
                             case Codes.BASIC_DISCONNECT:
                                 return ExecuteDisconnect();
